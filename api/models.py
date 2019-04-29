@@ -97,6 +97,9 @@ class Lesson(models.Model):
     summary = models.CharField(max_length=280, blank=False, null=False)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     grade = models.IntegerField() # this will also help with filtering
+
+    # at the moment these are just basic stags separated by commas
+    # django taggit is a bit tricky and not worth it atm
     tags = models.TextField()
 
 
