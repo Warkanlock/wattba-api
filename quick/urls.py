@@ -1,8 +1,11 @@
 from django.urls import path
 
-from . import views, lessons
+from . import views, lessons, chatbot
 
 urlpatterns = [
+    # chatbot endpoints
+    path('chatbot/lesson/<id>/detail', chatbot.detail),
+
     # users
     path('hello', views.hello_world),
     path('hello/<name>/', views.hello_name),
