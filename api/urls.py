@@ -22,4 +22,5 @@ urlpatterns = [
 	# you need to re-create requests
 	path('teaching/', views.SubjectTeachingCreate.as_view()),
 	path('teaching/<slug:pk>/', views.SubjectTeachingDetail.as_view()),
+	path('search?/<slug:str>/', views.SearchView.as_view()),
 ]

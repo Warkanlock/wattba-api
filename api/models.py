@@ -30,8 +30,7 @@ class Subject(models.Model):
         values = []
         teachings = SubjectTeaching.objects.filter(subject=self)
         for teaching in teachings:
-            values.append({"Teacher": teaching.teacher.username, 
-                           "Subject": teaching.subject.name,
+            values.append({"teacher": teaching.teacher.username, 
                            "grade": teaching.grade})
         return values
     
@@ -90,7 +89,7 @@ RequestUser = Union[AnonymousUser, User]
 class Lesson(models.Model):
 
     title = models.CharField(max_length=280, blank=False, null=False)
-    content = RichTextField( default="")
+    content = RichTextField( default="") # models.TextField(max_length=1000, blank=False, null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     summary = models.CharField(max_length=280, default="")
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
@@ -106,7 +105,8 @@ class Lesson(models.Model):
         content=self.content,
         tags=self.tags ,
         title=self.title,
-        summary=self.summary
+        summary=self.summary,
+        id=self.id
             )
         obj.save()
         return obj.to_dict(include_meta=True)

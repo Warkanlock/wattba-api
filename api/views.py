@@ -1,6 +1,7 @@
 from rest_framework import generics
 
 from . import models, serializers
+from .search import *
 
 
 class HomeView(generics.ListCreateAPIView):
@@ -53,6 +54,16 @@ class SubjectTeachingCreate(generics.CreateAPIView):
 	queryset = models.SubjectTeaching.objects.all()
 	serializer_class = serializers.SubjectTeachingSerializer
 
-class ContentSearch(generic.ListAPIView):
-    queryset = search.search_content()
-	serializer_class = serializers.LessonSearch
+class SearchView(generics.ListAPIView):
+	lookup_field = 'slug'
+	serializer_class = serializers.LessonSerializer
+
+	def get_queryset(self):
+		lookup_field = self.kwargs['slug']
+		pk_list = search_title(lookup_field, [])
+		pk_list += search_content(lookup_field, pk_list)
+		pk_list += search_summary(lookup_field, pk_list)
+		pk_list += search_tags(lookup_field, pk_list)
+		queryset =  models.Lesson.objects.filter(pk__in=pk_list)
+		return queryset
+    
