@@ -1,4 +1,6 @@
 Django==2.1.8
+django-cors-headers==2.5.3
+django-richtextfield==1.4.0
 djangorestframework==3.9.2
 pytz==2019.1
 sqlparse==0.3.0
