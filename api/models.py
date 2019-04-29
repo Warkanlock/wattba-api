@@ -7,6 +7,9 @@ from djrichtextfield.models import RichTextField
 class Subject(models.Model):
     name = models.CharField(max_length=280, blank=False, null=False)
 
+    def __str__(self):
+        return self.name
+
     def get_lessons(self):
         return Lesson.objects.filter(subject=self).values_list('id', flat=True)
 
@@ -64,3 +67,7 @@ class Lesson(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     summary = models.CharField(max_length=280, blank=False, null=False)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
