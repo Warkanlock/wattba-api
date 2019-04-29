@@ -121,3 +121,4 @@ class SubjectTeaching(models.Model):
     teacher  =  models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     grade = grade = models.IntegerField()
+    
