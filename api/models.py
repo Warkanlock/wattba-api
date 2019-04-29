@@ -9,6 +9,9 @@ from taggit.managers import TaggableManager
 class Subject(models.Model):
     name = models.CharField(max_length=280, blank=False, null=False)
 
+    def __str__(self):
+        return self.name
+
     def get_lessons(self):
 
         lessons = Lesson.objects.filter(subject=self)
@@ -109,6 +112,9 @@ class Lesson(models.Model):
     # at the moment these are just basic stags separated by commas
     # django taggit is a bit tricky and not worth it atm
     tags = models.TextField()
+    
+    def __str__(self):
+        return self.title
 
 
 class SubjectTeaching(models.Model):
