@@ -37,9 +37,6 @@ class Subject(models.Model):
                            "Subject": teaching.subject.name,
                            "grade": teaching.grade})
         return values
-    
-        def __str__(self):
-            return self.name
 
     # TOD0
     # tags =  DJANGO TAGGABLE MANAGER
@@ -99,6 +96,7 @@ class Tag(models.Model):
     def __str__(self):
         return 'tag'.format(
             tag=self.text)
+
 
 class Lesson(models.Model):
 
