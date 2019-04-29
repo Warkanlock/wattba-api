@@ -73,7 +73,7 @@ def comments(request, id):
     return JsonResponse(data, safe=False)
 
 def detail(request, id):
-    data = {
+    data = [{
         'age_range': '11-13',
         'language': 'English',
         'translation': 'Available',
@@ -83,7 +83,7 @@ def detail(request, id):
         'duration': '3 days',
         'description': 'Cookie donut cotton candy. Chupa chups wafer icing gummies pudding cake jelly-o. Cake cupcake cotton candy bonbon marzipan topping chocolate cake. Jelly-o cookie halvah apple pie donut bear claw liquorice apple pie gummies. Cheesecake dragée chocolate cake pudding. Sugar plum jelly beans pie halvah apple pie. Chupa chups dragée cake.',
         'rating': 4,
-    }
+    }]
 
     return JsonResponse(data, safe=False)
 
