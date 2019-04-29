@@ -1,9 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, AnonymousUser
 from typing import Union
-from djrichtextfield.models import RichTextField
-
-from taggit.managers import TaggableManager
 
 
 class Subject(models.Model):
@@ -30,11 +27,11 @@ class Subject(models.Model):
         values = []
         teachings = SubjectTeaching.objects.filter(subject=self)
         for teaching in teachings:
-            values.append({"Teacher": teaching.teacher.username, 
+            values.append({"Teacher": teaching.teacher.username,
                            "Subject": teaching.subject.name,
                            "grade": teaching.grade})
         return values
-    
+
         def __str__(self):
             return self.name
 
@@ -76,7 +73,7 @@ class User(AbstractUser):
         teachings = SubjectTeaching.objects.filter(teacher=self)
 
         for teaching in teachings:
-            values.append({"Teacher": teaching.teacher.username, 
+            values.append({"Teacher": teaching.teacher.username,
                            "Subject": teaching.subject.name,
                            "grade": teaching.grade})
 
@@ -97,18 +94,20 @@ class Tag(models.Model):
         return 'tag'.format(
             tag=self.text)
 
+
 class Lesson(models.Model):
 
     title = models.CharField(max_length=280, blank=False, null=False)
-    content = RichTextField()
+    content = models.TextField(blank=False, null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    summary = models.CharField(max_length=280, blank=False, null=False)
+    summary = models.CharField(max_length=280, blank=True, null=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    grade = models.IntegerField() # this will also help with filtering
+    grade = models.IntegerField()  # this will also help with filtering
 
     # at the moment these are just basic stags separated by commas
     # django taggit is a bit tricky and not worth it atm
     tags = models.TextField()
+    duration = models.IntegerField(blank=True, null=True)
 
 
 class SubjectTeaching(models.Model):
@@ -116,6 +115,6 @@ class SubjectTeaching(models.Model):
     a teacher can choose to say that they teach which subject at which grade
     This will allow us to tune content for them
     '''
-    teacher  =  models.ForeignKey(User, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     grade = grade = models.IntegerField()
