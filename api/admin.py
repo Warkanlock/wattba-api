@@ -19,7 +19,7 @@ class SubjectAdmin(admin.ModelAdmin):
     """
     Extend the base Django UserAdmin with support
     """
-
+    list_display = ['name']
     ordering = ['-name']
 
 
@@ -28,5 +28,5 @@ class LessonAdmin(admin.ModelAdmin):
     """
     Extend the base Django UserAdmin with support
     """
-
+    list_display = ['title' , 'author', 'subject', 'grade']
     ordering = ['-title']
