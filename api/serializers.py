@@ -31,4 +31,4 @@ class SubjectSerializer(serializers.ModelSerializer):
 class LessonSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = models.Lesson
-		fields = ('id', 'title', 'content', 'summary', 'subject')
+		fields = ('id', 'title', 'content', 'summary', 'subject', 'author')

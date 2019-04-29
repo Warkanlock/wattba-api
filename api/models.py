@@ -8,7 +8,19 @@ class Subject(models.Model):
     name = models.CharField(max_length=280, blank=False, null=False)
 
     def get_lessons(self):
-        return Lesson.objects.filter(subject=self).values_list('id', flat=True)
+        
+        lessons = Lesson.objects.filter(subject=self)
+        values = []
+        for lesson in lessons:
+            values.append(
+                {
+                    "title": lesson.title,
+                    "content": lesson.content,
+                    "author": lesson.author.username,
+                    "subject": lesson.subject.name
+                }
+            )
+        return values
 
     # TOD0
     # tags =  DJANGO TAGGABLE MANAGER
