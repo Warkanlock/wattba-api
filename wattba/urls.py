@@ -21,7 +21,7 @@ from api import views
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('api/v1/backend/', include('api.urls')),
+    path('api/v1/', include('api.urls')),
     path('api/quick/', include('quick.urls')),
     path('djrichtextfield/', include('djrichtextfield.urls')),
     path('admin/', admin.site.urls),
