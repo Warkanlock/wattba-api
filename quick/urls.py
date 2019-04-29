@@ -14,8 +14,10 @@ urlpatterns = [
     path('lessons/recommended', lessons.recommended),
     path('lessons/<id>/comments', lessons.comments),
     path('lessons/<id>/detail', lessons.detail),
+    path('lessons/<lesson_id>/bookmark', lessons.bookmark),
     path('lessons/<id>/files', lessons.files),
     
     #users
     path('users/<id>/recent', users.recent),
+    path('users/bookmarked', users.bookmarked),
 ]

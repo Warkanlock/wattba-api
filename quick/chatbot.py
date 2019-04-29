@@ -10,7 +10,8 @@ def detail(request, id):
         "title": lesson.title,
         "content": strip_tags(lesson.content),
         "summary": lesson.summary,
-        "grade": lesson.grade
+        "grade": lesson.grade,
+        "image": "https://via.placeholder.com/1000x1000.png?text={}".format(lesson.title)
     }
 
     return JsonResponse(data, safe=False)
@@ -32,7 +33,8 @@ def lessons_by_subject(request):
             "content": strip_tags(l.content),
             "summary": l.summary,
             "grade": l.grade,
-            "subject": l.subject.name
+            "subject": l.subject.name,
+            "image": "https://via.placeholder.com/1000x1000.png?text={}".format(l.title)
         }
 
         data.append(lesson)
