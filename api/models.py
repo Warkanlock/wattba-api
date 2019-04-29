@@ -9,6 +9,9 @@ from .search import LessonContentIndex
 class Subject(models.Model):
     name = models.CharField(max_length=280, blank=False, null=False)
 
+    def __str__(self):
+        return self.name
+
     def get_lessons(self):
 
         lessons = Lesson.objects.filter(subject=self)
@@ -33,9 +36,6 @@ class Subject(models.Model):
             values.append({"teacher": teaching.teacher.username, 
                            "grade": teaching.grade})
         return values
-    
-        def __str__(self):
-            return self.name
 
     # TOD0
     # tags =  DJANGO TAGGABLE MANAGER
@@ -85,7 +85,6 @@ class User(AbstractUser):
 #: Helper type for Django request users: either anonymous or signed-in.
 RequestUser = Union[AnonymousUser, User]
 
-
 class Lesson(models.Model):
 
     title = models.CharField(max_length=280, blank=False, null=False)
@@ -98,7 +97,6 @@ class Lesson(models.Model):
     # at the moment these are just basic stags separated by commas
     # django taggit is a bit tricky and not worth it atm
     
-
     def indexing(self):
         obj = LessonContentIndex(
         meta={'id': self.id},
@@ -110,8 +108,6 @@ class Lesson(models.Model):
             )
         obj.save()
         return obj.to_dict(include_meta=True)
-    
-
 
 class SubjectTeaching(models.Model):
     '''
@@ -121,4 +117,3 @@ class SubjectTeaching(models.Model):
     teacher  =  models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     grade = grade = models.IntegerField()
-    
