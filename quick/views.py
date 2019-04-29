@@ -68,3 +68,31 @@ def trending(request):
     }]
 
     return JsonResponse(data, safe=False)
+
+def comments(request, id):
+    data = [{
+        'id': 0,
+        'user_id': 0,
+        'user_logo': 'https://thispersondoesnotexist.com/',
+        'date': '',
+        'stars': 4,
+        'review': 'Sweet roll cupcake muffin oat cake bonbon marshmallow. Gingerbread wafer oat cake. Lemon drops pie donut pie gummies fruitcake marshmallow. Tiramisu chocolate cake carrot cake jelly beans jelly beans. Halvah halvah apple pie donut. Bonbon gingerbread fruitcake jelly cake candy canes lollipop.',
+    },
+    {
+        'id': 1,
+        'user_id': 1,
+        'user_logo': 'https://thispersondoesnotexist.com/',
+        'date': '',
+        'stars': 3,
+        'review': 'Soufflé chocolate cake cheesecake candy canes wafer. Biscuit pudding jelly beans sugar plum donut. Chupa chups halvah sweet roll danish apple pie pudding chupa chups. Marshmallow gingerbread dessert. Marzipan jelly chocolate chocolate cake halvah dragée pie cake. Sweet jelly-o dessert biscuit chocolate liquorice ice cream danish danish. Dessert ice cream marshmallow cake muffin chocolate cake toffee sweet soufflé.',
+    },
+    {
+        'id': 2,
+        'user_id': 2,
+        'user_logo': 'https://thispersondoesnotexist.com/',
+        'date': '',
+        'stars': 5,
+        'review': 'Carrot cake toffee pudding. Croissant cheesecake jelly. Topping danish chocolate bar sweet.',
+    }]
+
+    return JsonResponse(data, safe=False)

@@ -8,7 +8,7 @@ urlpatterns = [
 	path('hello/<name>/', views.hello_name),
     path('lessons/trending', views.trending),
     path('lessons/recommended', views.recommended),
-    #path('lessons/<id>/comments'),
+    path('lessons/<id>/comments', views.comments),
     #path('lessons/<id>/detail'),
     #path('lessons/<id>/files')
 ]
