@@ -1,12 +1,16 @@
 from django.http import JsonResponse
 from api.models import Lesson
+from django.utils.html import strip_tags
+
 
 def detail(request, id):
-    lesson = Lesson.objects.get(pk=1)
+    lesson = Lesson.objects.get(pk=id)
 
     data = {
-        "name": lesson.title,
-        "pew": "no"
+        "title": lesson.title,
+        "content": strip_tags(lesson.content),
+        "summary": lesson.summary,
+        "grade": lesson.grade
     }
 
     return JsonResponse(data, safe=False)
