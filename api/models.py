@@ -3,12 +3,14 @@ from django.contrib.auth.models import AbstractUser, AnonymousUser
 from typing import Union
 from djrichtextfield.models import RichTextField
 
+from taggit.managers import TaggableManager
+
 
 class Subject(models.Model):
     name = models.CharField(max_length=280, blank=False, null=False)
 
     def get_lessons(self):
-        
+
         lessons = Lesson.objects.filter(subject=self)
         values = []
         for lesson in lessons:
@@ -17,10 +19,15 @@ class Subject(models.Model):
                     "title": lesson.title,
                     "content": lesson.content,
                     "author": lesson.author.username,
-                    "subject": lesson.subject.name
+                    "subject": lesson.subject.name,
+                    "grade": lesson.grade,
+                    "tags": lesson.tags
                 }
             )
         return values
+    
+        def __str__(self):
+            return self.name
 
     # TOD0
     # tags =  DJANGO TAGGABLE MANAGER
@@ -49,7 +56,9 @@ class User(AbstractUser):
                     "title": lesson.title,
                     "content": lesson.content,
                     "author": lesson.author.username,
-                    "subject": lesson.subject.name
+                    "subject": lesson.subject.name,
+                    "grade": lesson.grade,
+                    "tags": lesson.tags,
                 }
             )
         return values
@@ -70,9 +79,32 @@ class User(AbstractUser):
 RequestUser = Union[AnonymousUser, User]
 
 
+class Tag(models.Model):
+    """Tag for data. Every tag has unique text.
+    Tags are intersubject so don't attach them to subjects
+    """
+    text = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return 'tag'.format(
+            tag=self.text)
+
 class Lesson(models.Model):
+
     title = models.CharField(max_length=280, blank=False, null=False)
     content = RichTextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     summary = models.CharField(max_length=280, blank=False, null=False)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    grade = models.IntegerField() # this will also help with filtering
+    tags = models.TextField()
+
+
+class SubjectTeaching(models.Model):
+    '''
+    a teacher can choose to say that they teach which subject at which grade
+    This will allow us to tune content for them
+    '''
+    teacher  =  models.ForeignKey(User, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    grade = grade = models.IntegerField()

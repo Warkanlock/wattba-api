@@ -29,6 +29,7 @@ class SubjectSerializer(serializers.ModelSerializer):
 		fields = ('id', 'name', 'get_lessons' )
 
 class LessonSerializer(serializers.ModelSerializer):
+
 	class Meta:
 		model = models.Lesson
-		fields = ('id', 'title', 'content', 'summary', 'subject', 'author')
+		fields = ('id', 'title', 'content', 'summary', 'subject', 'author', 'grade', 'tags')
