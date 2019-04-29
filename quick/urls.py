@@ -13,5 +13,5 @@ urlpatterns = [
     path('lessons/recommended', lessons.recommended),
     path('lessons/<id>/comments', lessons.comments),
     path('lessons/<id>/detail', lessons.detail),
-    #path('lessons/<id>/files')
+    path('lessons/<id>/files', lessons.files),
 ]

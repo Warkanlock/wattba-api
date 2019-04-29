@@ -86,3 +86,20 @@ def detail(request, id):
     }
 
     return JsonResponse(data, safe=False)
+
+def files(request, id):
+    data = [{
+        'id': 0,
+        'type': 'doc',
+        'name': 'curriculum.docx',
+    },{
+        'id': 1,
+        'type': 'pdf',
+        'name': 'curriculum.pdf',
+    },{
+        'id': 2,
+        'type': 'jpg',
+        'name': 'planets.jpg',
+    }]
+
+    return JsonResponse(data, safe=False)
