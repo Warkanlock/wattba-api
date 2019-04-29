@@ -4,6 +4,7 @@ from . import models, serializers
 
 
 class HomeView(generics.ListCreateAPIView):
+    #taylor the content
 	queryset = models.Lesson.objects.all()
 	serializer_class = serializers.LessonSerializer
 
@@ -51,3 +52,7 @@ class SubjectTeachingDetail(generics.RetrieveUpdateDestroyAPIView):
 class SubjectTeachingCreate(generics.CreateAPIView):
 	queryset = models.SubjectTeaching.objects.all()
 	serializer_class = serializers.SubjectTeachingSerializer
+
+class ContentSearch(generic.ListAPIView):
+    queryset = search.search_content()
+	serializer_class = serializers.LessonSearch

@@ -5,3 +5,4 @@ djangorestframework==3.9.2
 Pillow==6.0.0
 pytz==2019.1
 sqlparse==0.3.0
+elasticsearch-dsl==5.1.0
