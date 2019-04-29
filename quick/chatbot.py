@@ -14,3 +14,27 @@ def detail(request, id):
     }
 
     return JsonResponse(data, safe=False)
+
+
+def lessons_by_subject(request):
+    subject_id = request.GET.get('subject_id')
+
+    if subject_id is not None:
+        lessons = Lesson.objects.filter(subject__id=subject_id)
+    else:
+        lessons = Lesson.objects.all()
+
+    data = []
+
+    for l in lessons:
+        lesson = {
+            "title": l.title,
+            "content": strip_tags(l.content),
+            "summary": l.summary,
+            "grade": l.grade,
+            "subject": l.subject.name
+        }
+
+        data.append(lesson)
+
+    return JsonResponse(data, safe=False)

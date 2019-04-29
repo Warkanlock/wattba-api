@@ -4,7 +4,8 @@ from . import views, lessons, chatbot, users
 
 urlpatterns = [
     # chatbot endpoints
-    path('chatbot/lesson/<id>/detail', chatbot.detail),
+    path('chatbot/lessons/<id>/detail', chatbot.detail),
+    path('chatbot/lessons', chatbot.lessons_by_subject),
 
     # lessons
     path('hello', views.hello_world),

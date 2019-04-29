@@ -27,7 +27,7 @@ go to ``http://127.0.0.1:9200/lessoncontent-index/lesson_content_index/1/``
 
 ## /quick
 
-``/api/quick/chatbot/lesson/<id>/detail``
+``/api/quick/chatbot/lessons/<id>/detail``
 
 `id` required
 
@@ -39,6 +39,23 @@ returns:
     "summary": "Some summary about a math lesson",
     "grade": 1
 }
+```
+
+``/api/quick/chatbot/lessons?subject_id=<id>``
+
+`id` is optional
+
+returns:
+```json
+[
+    {
+    "title": "English Lesson b",
+    "content": "This is a relevant lesson... tis is",
+    "summary": "English is better than Spanish Nano!",
+    "grade": 2,
+    "subject": "Science"
+    }
+]
 ```
 
 ``/api/quick/lessons/recommended``
