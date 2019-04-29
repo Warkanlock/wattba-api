@@ -46,3 +46,25 @@ def recommended(request):
     }]
 
     return JsonResponse(data, safe=False)
+
+def trending(request):
+    data = [{
+        'id': 3,
+        'tags': 'Math,Physics,IT',
+        'title': 'Cool lesson title 1',
+        'description': 'Lollipop gingerbread sweet roll. Marshmallow macaroon bonbon tart cupcake. Ice cream candy canes candy canes dessert bonbon muffin ice cream. Pastry cotton candy sweet roll. Chocolate soufflé chocolate cake tiramisu biscuit oat cake bear claw brownie. Candy sweet apple pie sweet sweet icing dessert candy canes.'
+    },
+    {
+        'id': 4,
+        'tags': 'Math,IT',
+        'title': 'Cool lesson title 2',
+        'description': 'Lollipop gingerbread sweet roll. Marshmallow macaroon bonbon tart cupcake. Ice cream candy canes candy canes dessert bonbon muffin ice cream. Pastry cotton candy sweet roll. Chocolate soufflé chocolate cake tiramisu biscuit oat cake bear claw brownie. Candy sweet apple pie sweet sweet icing dessert candy canes.'
+    },
+    {
+        'id': 5,
+        'tags': 'IT,Science',
+        'title': 'Cool lesson title 3',
+        'description': 'Lollipop gingerbread sweet roll. Marshmallow macaroon bonbon tart cupcake. Ice cream candy canes candy canes dessert bonbon muffin ice cream. Pastry cotton candy sweet roll. Chocolate soufflé chocolate cake tiramisu biscuit oat cake bear claw brownie. Candy sweet apple pie sweet sweet icing dessert candy canes.'
+    }]
+
+    return JsonResponse(data, safe=False)
