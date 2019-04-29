@@ -1,54 +1,43 @@
 from django.http import JsonResponse
 
+from api.models import Lesson
+
 
 def recommended(request):
-    data = [
-        {
-            'id': 0,
-            'tags': 'Math,Physics,IT',
-            'title': 'Dummy title 1',
-            'description': 'Lollipop gingerbread sweet roll. Marshmallow macaroon bonbon tart cupcake. Ice cream candy canes candy canes dessert bonbon muffin ice cream. Pastry cotton candy sweet roll. Chocolate soufflé chocolate cake tiramisu biscuit oat cake bear claw brownie. Candy sweet apple pie sweet sweet icing dessert candy canes.'
-        },
-        {
-            'id': 1,
-            'tags': 'Math,Physics',
-            'title': 'Dummy title 2',
-            'description': 'Lollipop gingerbread sweet roll. Marshmallow macaroon bonbon tart cupcake. Ice cream candy canes candy canes dessert bonbon muffin ice cream. Pastry cotton candy sweet roll. Chocolate soufflé chocolate cake tiramisu biscuit oat cake bear claw brownie. Candy sweet apple pie sweet sweet icing dessert candy canes.'
-        },
-        {
-            'id': 2,
-            'tags': 'Math,Physics',
-            'title': 'Dummy title 3',
-            'description': 'Lollipop gingerbread sweet roll. Marshmallow macaroon bonbon tart cupcake. Ice cream candy canes candy canes dessert bonbon muffin ice cream. Pastry cotton candy sweet roll. Chocolate soufflé chocolate cake tiramisu biscuit oat cake bear claw brownie. Candy sweet apple pie sweet sweet icing dessert candy canes.'
-        }
-    ]
 
-    return JsonResponse(data, safe=False)
+    count = 0
+    lessons = Lesson.objects.all()
+    results = []
+
+    for l in lessons:
+        count += 1
+        if count < 3:
+            results.append({
+                'id': l.id,
+                'tags': l.tags,
+                'title': l.title,
+                'description': l.summary
+            })
+
+    return JsonResponse(results, safe=False)
 
 
 def trending(request):
-    data = [
-        {
-            'id': 3,
-            'tags': 'Math,Physics,IT',
-            'title': 'Cool lesson title 1',
-            'description': 'Lollipop gingerbread sweet roll. Marshmallow macaroon bonbon tart cupcake. Ice cream candy canes candy canes dessert bonbon muffin ice cream. Pastry cotton candy sweet roll. Chocolate soufflé chocolate cake tiramisu biscuit oat cake bear claw brownie. Candy sweet apple pie sweet sweet icing dessert candy canes.'
-        },
-        {
-            'id': 4,
-            'tags': 'Math,IT',
-            'title': 'Cool lesson title 2',
-            'description': 'Lollipop gingerbread sweet roll. Marshmallow macaroon bonbon tart cupcake. Ice cream candy canes candy canes dessert bonbon muffin ice cream. Pastry cotton candy sweet roll. Chocolate soufflé chocolate cake tiramisu biscuit oat cake bear claw brownie. Candy sweet apple pie sweet sweet icing dessert candy canes.'
-        },
-        {
-            'id': 5,
-            'tags': 'IT,Science',
-            'title': 'Cool lesson title 3',
-            'description': 'Lollipop gingerbread sweet roll. Marshmallow macaroon bonbon tart cupcake. Ice cream candy canes candy canes dessert bonbon muffin ice cream. Pastry cotton candy sweet roll. Chocolate soufflé chocolate cake tiramisu biscuit oat cake bear claw brownie. Candy sweet apple pie sweet sweet icing dessert candy canes.'
-        }
-    ]
+    count = 0
+    lessons = Lesson.objects.all()
+    results = []
 
-    return JsonResponse(data, safe=False)
+    for l in lessons:
+        count += 1
+        if count < 3:
+            results.append({
+                'id': l.id,
+                'tags': l.tags,
+                'title': l.title,
+                'description': l.summary
+            })
+
+    return JsonResponse(results, safe=False)
 
 
 def comments(request, id):
@@ -99,6 +88,17 @@ def detail(request, id):
 
     return JsonResponse(data, safe=False)
 
+
+def bookmark(request, lesson_id):
+    lesson = Lesson.objects.get(pk=lesson_id)
+    lesson.bookmarked = True
+    lesson.save()
+
+    data = {
+        "status": "done"
+    }
+
+    return JsonResponse(data, safe=False)
 
 def files(request, id):
     data = [
