@@ -29,7 +29,7 @@ ALLOWED_HOSTS = [
     '.us-west-2.elasticbeanstalk.com',
     'localhost',
     'wattba.h9ssxfia9b.us-west-2.elasticbeanstalk.com/',
-    'http://127.0.0.1'
+    '127.0.0.1'
 ]
 
 
