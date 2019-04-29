@@ -94,6 +94,7 @@ class Lesson(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     grade = models.IntegerField() # this will also help with filtering
     tags = models.TextField( default="")
+    bookmarked = models.BooleanField(default=False)
     # at the moment these are just basic stags separated by commas
     # django taggit is a bit tricky and not worth it atm
     
