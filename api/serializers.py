@@ -23,13 +23,20 @@ class UserCreateSerializer(serializers.ModelSerializer):
 class SubjectSerializer(serializers.ModelSerializer):
 
 	get_lessons = serializers.ReadOnlyField()
-
+	get_teachers = serializers.ReadOnlyField()
 	class Meta:
 		model = models.Subject
-		fields = ('id', 'name', 'get_lessons' )
+		fields = ('id', 'name', 'get_lessons', 'get_teachers' )
 
 class LessonSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = models.Lesson
 		fields = ('id', 'title', 'content', 'summary', 'subject', 'author', 'grade', 'tags')
+
+
+class SubjectTeachingSerializer(serializers.ModelSerializer):
+    	
+	class Meta:
+		model = models.SubjectTeaching
+		fields = ('id', 'teacher', 'subject', 'grade')

@@ -40,3 +40,14 @@ class SubjectDetail(generics.RetrieveUpdateDestroyAPIView):
 	queryset = models.Subject.objects.all()
 	lookup_field = 'pk'
 	serializer_class = serializers.SubjectSerializer
+
+	# this relation allows use to determine which teacher is teaching which subject at which level
+
+class SubjectTeachingDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = models.SubjectTeaching.objects.all()
+	lookup_field = 'pk'
+	serializer_class = serializers.SubjectTeachingSerializer
+
+class SubjectTeachingCreate(generics.CreateAPIView):
+	queryset = models.SubjectTeaching.objects.all()
+	serializer_class = serializers.SubjectTeachingSerializer

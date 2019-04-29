@@ -25,6 +25,15 @@ class Subject(models.Model):
                 }
             )
         return values
+
+    def get_teachers(self):
+        values = []
+        teachings = SubjectTeaching.objects.filter(subject=self)
+        for teaching in teachings:
+            values.append({"Teacher": teaching.teacher.username, 
+                           "Subject": teaching.subject.name,
+                           "grade": teaching.grade})
+        return values
     
         def __str__(self):
             return self.name
@@ -40,7 +49,6 @@ class User(AbstractUser):
     bio = models.CharField(blank=True, null=True, max_length=250)
     region = models.CharField(blank=True, null=True, max_length=250)
     school_name = models.CharField(blank=True, null=True, max_length=250)
-    subjects = models.ManyToManyField(Subject)
 
     # TODO
     # liked_lessons = models.ManyToManyField(Lesson)
@@ -63,14 +71,14 @@ class User(AbstractUser):
             )
         return values
 
-    def get_liked_lessons(self):
-        return self.liked_lessons.values_list(flat=True)
-
-    def get_subjects_following(self):
+    def get_subjects_teaching(self):
         values = []
-        for pk in self.subjects.all():
-            subject = Subject.objects.get(pk=pk.pk)
-            values.append({"pk": subject.pk, "name": subject.name})
+        teachings = SubjectTeaching.objects.filter(teacher=self)
+
+        for teaching in teachings:
+            values.append({"Teacher": teaching.teacher.username, 
+                           "Subject": teaching.subject.name,
+                           "grade": teaching.grade})
 
         return values
 
