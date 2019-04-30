@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, AnonymousUser
 from typing import Union
-from djrichtextfield.models import RichTextField
 
 from .search import LessonContentIndex
 
@@ -33,10 +32,12 @@ class Subject(models.Model):
         values = []
         teachings = SubjectTeaching.objects.filter(subject=self)
         for teaching in teachings:
-            values.append({"teacher": teaching.teacher.username, 
+            values.append({"Teacher": teaching.teacher.username,
                            "grade": teaching.grade})
         return values
 
+        def __str__(self):
+            return self.name
     # TOD0
     # tags =  DJANGO TAGGABLE MANAGER
 
@@ -75,7 +76,7 @@ class User(AbstractUser):
         teachings = SubjectTeaching.objects.filter(teacher=self)
 
         for teaching in teachings:
-            values.append({"Teacher": teaching.teacher.username, 
+            values.append({"Teacher": teaching.teacher.username,
                            "Subject": teaching.subject.name,
                            "grade": teaching.grade})
 
@@ -115,6 +116,6 @@ class SubjectTeaching(models.Model):
     a teacher can choose to say that they teach which subject at which grade
     This will allow us to tune content for them
     '''
-    teacher  =  models.ForeignKey(User, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     grade = grade = models.IntegerField()
