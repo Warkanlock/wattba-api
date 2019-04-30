@@ -16,6 +16,7 @@ def recommended(request):
                 'id': l.id,
                 'tags': l.tags,
                 'title': l.title,
+                "bookmarked": l.bookmarked,
                 'description': l.summary
             })
 
@@ -34,6 +35,7 @@ def trending(request):
                 'id': l.id,
                 'tags': l.tags,
                 'title': l.title,
+                "bookmarked": l.bookmarked,
                 'description': l.summary
             })
 
