@@ -1,11 +1,16 @@
 from django.urls import path
 
-from . import views, lessons, chatbot, users
+from . import views, lessons, chatbot, users, pytorch
 
 urlpatterns = [
     # chatbot endpoints
     path('chatbot/lessons/<id>/detail', chatbot.detail),
     path('chatbot/lessons', chatbot.lessons_by_subject),
+
+    # pytorch endpoints
+    path('pytorch/<lesson_id>/<dst>/translate/summary', pytorch.translate),
+    path('pytorch/<lesson_id>/<dst>/translate/detail', pytorch.translate_detail),
+    path('pytorch/<lesson_id>/summary', pytorch.summary),
 
     # lessons
     path('hello', views.hello_world),

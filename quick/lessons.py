@@ -17,7 +17,7 @@ def recommended(request):
                 'tags': l.tags,
                 'title': l.title,
                 "bookmarked": l.bookmarked,
-                'description': l.summary
+                'description': l.content
             })
 
     return JsonResponse(results, safe=False)
@@ -36,7 +36,7 @@ def trending(request):
                 'tags': l.tags,
                 'title': l.title,
                 "bookmarked": l.bookmarked,
-                'description': l.summary
+                'description': l.content
             })
 
     return JsonResponse(results, safe=False)
