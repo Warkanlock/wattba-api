@@ -3,6 +3,9 @@ from django.contrib.auth.models import AbstractUser, AnonymousUser
 from typing import Union
 
 
+import requests
+
+
 class Subject(models.Model):
     name = models.CharField(max_length=280, blank=False, null=False)
 
@@ -30,8 +33,6 @@ class Subject(models.Model):
             values.append({"Teacher": teaching.teacher.username,
                            "grade": teaching.grade})
 
-        def __str__(self):
-            return self.name
     # TOD0
     # tags =  DJANGO TAGGABLE MANAGER
 
@@ -97,14 +98,57 @@ class Lesson(models.Model):
     title = models.CharField(max_length=280, blank=False, null=False)
     content = models.TextField(blank=False, null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    summary = models.CharField(max_length=280, blank=True, null=True)
+    summary = models.CharField(max_length=280, default="", blank=True, null=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     grade = models.IntegerField()  # this will also help with filtering
-
+    age_range = models.TextField(default="", null=True, blank=True)
+    language = models.TextField(default="", null=True, blank=True)
+    translation = models.TextField(default="", null=True, blank=True)
+    subject_matter = models.TextField(default="", null=True, blank=True)
+    activity_type = models.TextField(default="", null=True, blank=True)
+    duration = models.TextField(default="", null=True, blank=True)
+    tags = models.TextField(default="", null=True, blank=True)
+    topic = models.TextField(default="", null=True, blank=True)
+    supplies = models.TextField(default="", null=True, blank=True)
+    votes = models.TextField(default="", null=True, blank=True)
+    rating = models.TextField(default="", null=True, blank=True)
+    bookmarked = models.BooleanField(blank=False, default=False)
     # at the moment these are just basic stags separated by commas
     # django taggit is a bit tricky and not worth it atm
-    tags = models.TextField()
-    duration = models.IntegerField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        content = kwargs.get('content')
+        # create a summary using the content
+        # make an http request
+        # from django.conf import settings
+
+        post_data = {"text": content}     # a sequence of two element tuples
+        result = requests.post(
+            "http://18.236.191.192:3000/summary",
+            json=post_data,
+        )
+        summary = result.json()['result']
+        if not len(summary) > 0:
+            self.summary = summary
+
+        super(Lesson, self).save(*args, **kwargs)
+
+    def __init__(self, *args, **kwargs):
+
+        sub_val = kwargs.get('subject')
+        if type(sub_val) == str:
+            # the subject username is being used
+            subjects = Subject.objects.filter(name=sub_val)
+            if subjects.exists():
+                subject = subjects[0]
+                kwargs['subject'] = subject
+            else:
+                new_subject = Subject.objects.create(name=sub_val)
+                new_subject.save()
+                kwargs['subject'] = new_subject
+            super(Lesson, self).__init__(*args, **kwargs)
+
+        super(Lesson, self).__init__(*args, **kwargs)
 
 
 class SubjectTeaching(models.Model):

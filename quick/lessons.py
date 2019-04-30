@@ -74,17 +74,22 @@ def comments(request, id):
 
 
 def detail(request, id):
+    lesson = Lesson.objects.get(pk=id)
+
     data = [
         {
-            'age_range': '11-13',
-            'language': 'English',
-            'translation': 'Available',
-            'subject_matter': 'Science',
-            'topic': 'Planets',
-            'activity_type': 'Project',
-            'duration': '3 days',
-            'description': 'Cookie donut cotton candy. Chupa chups wafer icing gummies pudding cake jelly-o. Cake cupcake cotton candy bonbon marzipan topping chocolate cake. Jelly-o cookie halvah apple pie donut bear claw liquorice apple pie gummies. Cheesecake dragée chocolate cake pudding. Sugar plum jelly beans pie halvah apple pie. Chupa chups dragée cake.',
-            'rating': 4,
+            'age_range': lesson.age_range,
+            'title': lesson.title,
+            'translation': lesson.translation,
+            'subject_matter': lesson.subject_matter,
+            'topic': lesson.topic,
+            'activity_type': lesson.activity_type,
+            'duration': lesson.duration,
+            'description': lesson.content,
+            'rating': lesson.rating,
+            'votes': lesson.votes,
+            'supplies': lesson.supplies,
+             "image": "https://via.placeholder.com/2000x2000.png?text={}".format(lesson.title)
         }
     ]
 
