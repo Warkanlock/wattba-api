@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser, AnonymousUser
 from typing import Union
 
 import requests
+from djrichtextfield.models import RichTextField
 
 summary_url = 'http://18.236.191.192:3000/summary?action=[action_name]&[parameters]'
 
@@ -38,8 +39,6 @@ class Subject(models.Model):
                            "grade": teaching.grade})
         return values
 
-        def __str__(self):
-            return self.name
     # TOD0
     # tags =  DJANGO TAGGABLE MANAGER
 
@@ -87,7 +86,6 @@ class User(AbstractUser):
 
 #: Helper type for Django request users: either anonymous or signed-in.
 RequestUser = Union[AnonymousUser, User]
-
 
 class Lesson(models.Model):
 
