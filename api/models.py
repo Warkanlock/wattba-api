@@ -2,7 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, AnonymousUser
 from typing import Union
 
-from .search import LessonContentIndex
+import requests
+
+summary_url = 'http://18.236.191.192:3000/summary?action=[action_name]&[parameters]'
 
 
 class Subject(models.Model):
@@ -86,30 +88,35 @@ class User(AbstractUser):
 #: Helper type for Django request users: either anonymous or signed-in.
 RequestUser = Union[AnonymousUser, User]
 
+
 class Lesson(models.Model):
 
     title = models.CharField(max_length=280, blank=False, null=False)
-    content = RichTextField( default="") # models.TextField(max_length=1000, blank=False, null=False)
+    content = models.TextField(blank=False, null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     summary = models.CharField(max_length=280, default="")
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    grade = models.IntegerField() # this will also help with filtering
-    tags = models.TextField( default="")
+    grade = models.IntegerField()  # this will also help with filtering
+    tags = models.TextField(default="")
     bookmarked = models.BooleanField(default=False)
     # at the moment these are just basic stags separated by commas
     # django taggit is a bit tricky and not worth it atm
-    
-    def indexing(self):
-        obj = LessonContentIndex(
-        meta={'id': self.id},
-        content=self.content,
-        tags=self.tags ,
-        title=self.title,
-        summary=self.summary,
-        id=self.id
-            )
-        obj.save()
-        return obj.to_dict(include_meta=True)
+
+    def save(self, *args, **kwargs):
+        content = kwargs.get('content')
+        # create a summary using the content
+        # make an http request
+        # from django.conf import settings
+
+        post_data = {"text": content}     # a sequence of two element tuples
+        result = requests.post(
+            "http://18.236.191.192:3000/summary",
+            json=post_data,
+        )
+
+        self.summary = result.json()['result'] or ""
+        super(Lesson, self).save(*args, **kwargs)
+
 
 class SubjectTeaching(models.Model):
     '''
