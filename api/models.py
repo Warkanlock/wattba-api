@@ -95,13 +95,18 @@ class Lesson(models.Model):
     summary = models.CharField(max_length=280, default="")
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     grade = models.IntegerField() # this will also help with filtering
-    tags = models.TextField(default="", null=True)
-    topic = models.TextField(default="", null=True)
-    duration = models.TextField(default="", null=True)
-    supplies = models.TextField(default="", null=True)
-    votes = models.TextField(default="", null=True)
-    rating = models.TextField(default="", null=True)
-    bookmarked = models.BooleanField(default=False)
+    age_range = models.TextField(default="", null=True, blank=True)
+    language = models.TextField(default="", null=True, blank=True)
+    translation = models.TextField(default="", null=True, blank=True)
+    subject_matter = models.TextField(default="", null=True, blank=True)
+    activity_type = models.TextField(default="", null=True, blank=True)
+    duration = models.TextField(default="", null=True, blank=True)
+    tags = models.TextField(default="", null=True, blank=True)
+    topic = models.TextField(default="", null=True, blank=True)
+    supplies = models.TextField(default="", null=True, blank=True)
+    votes = models.TextField(default="", null=True, blank=True)
+    rating = models.TextField(default="", null=True, blank=True)
+    bookmarked = models.BooleanField(blank=False, default=False)
     # at the moment these are just basic stags separated by commas
     # django taggit is a bit tricky and not worth it atm
 

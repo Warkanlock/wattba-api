@@ -23,6 +23,15 @@ class Command(BaseCommand):
                 subject=Subject.objects.get(pk=1),
                 grade=4,
                 tags="these,are,tags",
+                age_range="as old as fart",
+                language="English",
+                translation="Available",
+                subject_matter="School and Life",
+                activity_type="Some ACTIVITY TYPQ",
+                duration="4.37 days",
+                supplies="Pens, Cokkies",
+                votes="123123",
+                rating="5",
             )
 
             Lesson.objects.create(
@@ -33,6 +42,15 @@ class Command(BaseCommand):
                 subject=Subject.objects.get(pk=1),
                 grade=4,
                 tags="these,are,tags",
+                age_range="as old as fart",
+                language="English",
+                translation="Available",
+                subject_matter="School and Life",
+                activity_type="Some ACTIVITY TYPQ",
+                duration="4.37 days",
+                supplies="Pens, dsafsdf",
+                votes="123123",
+                rating="5",
             )
 
             Lesson.objects.create(
@@ -43,6 +61,15 @@ class Command(BaseCommand):
                 subject=Subject.objects.get(pk=1),
                 grade=4,
                 tags="these,are,tags",
+                age_range="as old as fart",
+                language="English",
+                translation="Available",
+                subject_matter="School and Life",
+                activity_type="Some ACTIVITY TYPQ",
+                duration="4.234 days",
+                supplies="asdfasfd, Cokkies",
+                votes="123123",
+                rating="5",
             )
 
             # Country.objects.bulk_create(countries)

@@ -22,6 +22,7 @@ def detail(request, id):
 
 def lessons_by_subject(request):
     subject_id = request.GET.get('subject_id')
+    grade = request.GET.get('grade')
 
     if subject_id is not None:
         lessons = Lesson.objects.filter(subject__id=subject_id)
@@ -31,17 +32,18 @@ def lessons_by_subject(request):
     data = []
 
     for l in lessons:
-        lesson = {
-            "lesson_id": l.id,
-            "subject_id": l.subject.id,
-            "title": l.title,
-            "content": strip_tags(l.content),
-            "summary": l.summary,
-            "grade": l.grade,
-            "subject": l.subject.name,
-            "image": "https://via.placeholder.com/1000x1000.png?text={}".format(l.title)
-        }
+        if (grade is not None and int(grade) == l.grade) or (grade is None):
+            lesson = {
+                "lesson_id": l.id,
+                "subject_id": l.subject.id,
+                "title": l.title,
+                "content": strip_tags(l.content),
+                "summary": l.summary,
+                "grade": l.grade,
+                "subject": l.subject.name,
+                "image": "https://via.placeholder.com/1000x1000.png?text={}".format(l.title)
+            }
 
-        data.append(lesson)
+            data.append(lesson)
 
     return JsonResponse(data, safe=False)
