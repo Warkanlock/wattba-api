@@ -95,12 +95,12 @@ class Lesson(models.Model):
     summary = models.CharField(max_length=280, default="")
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     grade = models.IntegerField() # this will also help with filtering
-    tags = models.TextField(default="")
-    topic = models.TextField(default="")
-    duration = models.TextField(default="")
-    supplies = models.TextField(default="")
-    votes = models.TextField(default="")
-    rating = models.TextField(default="")
+    tags = models.TextField(default="", null=True)
+    topic = models.TextField(default="", null=True)
+    duration = models.TextField(default="", null=True)
+    supplies = models.TextField(default="", null=True)
+    votes = models.TextField(default="", null=True)
+    rating = models.TextField(default="", null=True)
     bookmarked = models.BooleanField(default=False)
     # at the moment these are just basic stags separated by commas
     # django taggit is a bit tricky and not worth it atm
