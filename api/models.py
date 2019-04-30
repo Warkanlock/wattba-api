@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser, AnonymousUser
 from typing import Union
 
 import requests
+from djrichtextfield.models import RichTextField
 
 summary_url = 'http://18.236.191.192:3000/summary?action=[action_name]&[parameters]'
 
@@ -38,8 +39,6 @@ class Subject(models.Model):
                            "grade": teaching.grade})
         return values
 
-        def __str__(self):
-            return self.name
     # TOD0
     # tags =  DJANGO TAGGABLE MANAGER
 
@@ -88,16 +87,20 @@ class User(AbstractUser):
 #: Helper type for Django request users: either anonymous or signed-in.
 RequestUser = Union[AnonymousUser, User]
 
-
 class Lesson(models.Model):
 
     title = models.CharField(max_length=280, blank=False, null=False)
-    content = models.TextField(blank=False, null=False)
+    content = RichTextField( default="") # models.TextField(max_length=1000, blank=False, null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     summary = models.CharField(max_length=280, default="")
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    grade = models.IntegerField()  # this will also help with filtering
+    grade = models.IntegerField() # this will also help with filtering
     tags = models.TextField(default="")
+    topic = models.TextField(default="")
+    duration = models.TextField(default="")
+    supplies = models.TextField(default="")
+    votes = models.TextField(default="")
+    rating = models.TextField(default="")
     bookmarked = models.BooleanField(default=False)
     # at the moment these are just basic stags separated by commas
     # django taggit is a bit tricky and not worth it atm

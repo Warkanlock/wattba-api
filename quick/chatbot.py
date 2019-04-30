@@ -8,6 +8,7 @@ def detail(request, id):
 
     data = {
         "lesson_id": lesson.id,
+        "subject_id": lesson.subject.id,
         "title": lesson.title,
         "content": strip_tags(lesson.content),
         "summary": lesson.summary,
@@ -32,6 +33,7 @@ def lessons_by_subject(request):
     for l in lessons:
         lesson = {
             "lesson_id": l.id,
+            "subject_id": l.subject.id,
             "title": l.title,
             "content": strip_tags(l.content),
             "summary": l.summary,
