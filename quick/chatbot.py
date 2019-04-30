@@ -1,4 +1,8 @@
-from django.http import JsonResponse
+import json
+
+from django.http import JsonResponse, HttpResponseServerError, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
 from api.models import Lesson
 from django.utils.html import strip_tags
 
@@ -45,5 +49,28 @@ def lessons_by_subject(request):
             }
 
             data.append(lesson)
+
+    return JsonResponse(data, safe=False)
+
+
+@csrf_exempt
+def create(request):
+    data = {
+        'info': 'Not working',
+    }
+
+    if request.method == 'POST':
+        json_data = json.loads(request.body)  # request.raw_post_data w/ Django < 1.4
+        try:
+            link = json_data['link']
+
+            if link is not None:
+                data = {
+                    'info': 'Great Success',
+                    'received': link
+                }
+        except KeyError:
+            HttpResponseServerError("Malformed data!")
+        HttpResponse("Got json data")
 
     return JsonResponse(data, safe=False)

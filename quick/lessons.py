@@ -1,6 +1,9 @@
-from django.http import JsonResponse
+import json
 
-from api.models import Lesson
+from django.http import JsonResponse, HttpResponseServerError, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
+from api.models import Lesson, Subject, User
 
 
 def recommended(request):
@@ -11,7 +14,7 @@ def recommended(request):
 
     for l in lessons:
         count += 1
-        if count < 3:
+        if count <= 3:
             results.append({
                 'id': l.id,
                 'tags': l.tags,
@@ -30,7 +33,7 @@ def trending(request):
 
     for l in lessons:
         count += 1
-        if count < 3:
+        if count <= 3:
             results.append({
                 'id': l.id,
                 'tags': l.tags,
@@ -124,5 +127,59 @@ def files(request, id):
             'name': 'planets.jpg',
         }
     ]
+
+    return JsonResponse(data, safe=False)
+
+# #title: "This is a title", summary: "This is summary", author: "", content: "", subject: "Math", …}
+# author: ""
+# content: ""
+# grade: "12"
+# subject: "Math"
+# summary: "This is summary"
+# tags: ""
+# title: "This is a title"
+
+# curl -d '{"title":"This is a Post Title", "grade":"10", "tags":"pew,is,life","subject":"math","summary":"this is a sum"}' -H "Content-Type: application/json" -X POST http://127.0.0.1:8000/api/quick/lessons/save
+
+@csrf_exempt
+def save(request):
+    if request.method == 'POST':
+        json_data = json.loads(request.body)  # request.raw_post_data w/ Django < 1.4
+        try:
+            title = json_data['title']
+            grade = json_data['grade']
+            tags = json_data['tags']
+            subject = json_data['subject']
+            summary = json_data['summary']
+            content = summary
+
+            subject_db = Subject.objects.filter(name__iexact=subject)
+
+            Lesson.objects.create(
+                title=title,
+                content=content,
+                author=User.objects.get(pk=1),
+                summary=summary,
+                subject=subject_db[0],
+                grade=int(grade),
+                tags=tags,
+                age_range="10-12",
+                language="English",
+                translation="Available",
+                subject_matter="School and Life",
+                activity_type="Some ACTIVITY TYPQ",
+                duration="4.37 days",
+                supplies="Pens, Markers",
+                votes="123123",
+                rating="5",
+            )
+        except KeyError:
+            HttpResponseServerError("Malformed data!")
+        HttpResponse("Got json data")
+
+
+    data = {
+        'info': 'Great Success'
+    }
 
     return JsonResponse(data, safe=False)

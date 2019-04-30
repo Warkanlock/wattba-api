@@ -11,9 +11,15 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if User.objects.exists():
 
-            Subject.objects.create(name="Science")
             Subject.objects.create(name="Math")
-            Subject.objects.create(name="Language")
+            Subject.objects.create(name="Sciences")
+            Subject.objects.create(name="Technology")
+            Subject.objects.create(name="Humanities")
+            Subject.objects.create(name="Art")
+            Subject.objects.create(name="Engineering")
+            Subject.objects.create(name="Languages")
+            Subject.objects.create(name="Health")
+            Subject.objects.create(name="Accounting")
 
             Lesson.objects.create(
                 title="Science A",
@@ -22,15 +28,15 @@ class Command(BaseCommand):
                 summary="some summary for title A",
                 subject=Subject.objects.get(pk=1),
                 grade=4,
-                tags="these,are,tags",
-                age_range="as old as fart",
+                tags="these,are,zsdf",
+                age_range="10 to 12 yrs",
                 language="English",
                 translation="Available",
                 subject_matter="School and Life",
                 activity_type="Some ACTIVITY TYPQ",
                 duration="4.37 days",
-                supplies="Pens, Cokkies",
-                votes="123123",
+                supplies="Pens, Markers",
+                votes="1431",
                 rating="5",
             )
 
@@ -42,14 +48,14 @@ class Command(BaseCommand):
                 subject=Subject.objects.get(pk=1),
                 grade=4,
                 tags="these,are,tags",
-                age_range="as old as fart",
+                age_range="14 - 16yrs",
                 language="English",
                 translation="Available",
                 subject_matter="School and Life",
                 activity_type="Some ACTIVITY TYPQ",
                 duration="4.37 days",
-                supplies="Pens, dsafsdf",
-                votes="123123",
+                supplies="Pens, pencils and thinking caps",
+                votes="2321",
                 rating="5",
             )
 
@@ -61,7 +67,7 @@ class Command(BaseCommand):
                 subject=Subject.objects.get(pk=1),
                 grade=4,
                 tags="these,are,tags",
-                age_range="as old as fart",
+                age_range="18 yrs +",
                 language="English",
                 translation="Available",
                 subject_matter="School and Life",

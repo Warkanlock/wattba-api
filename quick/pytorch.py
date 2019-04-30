@@ -80,3 +80,18 @@ def summary(request, lesson_id):
     }
 
     return JsonResponse(data, safe=False)
+
+
+def languages(request):
+    data = [
+        {
+            'name': 'Spanish',
+            'code': 'es'
+        },
+        {
+            'name': 'German',
+            'code': 'de'
+        }
+    ]
+
+    return JsonResponse(data, safe=False)
