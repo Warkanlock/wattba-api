@@ -91,14 +91,16 @@ RequestUser = Union[AnonymousUser, User]
 
 class Lesson(models.Model):
 
-    title = models.CharField(max_length=280, blank=False, null=False)
-    content = models.TextField(blank=False, null=False)
+    title = models.CharField(max_length=280, blank=True, null=True)
+    content = models.TextField(null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    summary = models.CharField(max_length=280, default="")
+    summary = models.CharField(max_length=280, default="", blank=True, null=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    grade = models.IntegerField()  # this will also help with filtering
-    tags = models.TextField(default="")
-    bookmarked = models.BooleanField(default=False)
+    grade = models.IntegerField(blank=True, null=True)  # this will also help with filtering
+    tags = models.TextField(blank=True, null=True)
+    bookmarked = models.BooleanField(default=False, blank=True)
+    region = models.TextField(blank=True, null=True)
+    supplies = models.TextField(blank=True, null=True)
     # at the moment these are just basic stags separated by commas
     # django taggit is a bit tricky and not worth it atm
 
@@ -113,9 +115,28 @@ class Lesson(models.Model):
             "http://18.236.191.192:3000/summary",
             json=post_data,
         )
+        summary = result.json()['result']
+        if not len(summary) > 0:
+            self.summary = summary
 
-        self.summary = result.json()['result'] or ""
         super(Lesson, self).save(*args, **kwargs)
+
+    def __init__(self, *args, **kwargs):
+
+        sub_val = kwargs.get('subject')
+        if type(sub_val) == str:
+            # the subject username is being used
+            subjects = Subject.objects.filter(name=sub_val)
+            if subjects.exists():
+                subject = subjects[0]
+                kwargs['subject'] = subject
+            else:
+                new_subject = Subject.objects.create(name=sub_val)
+                new_subject.save()
+                kwargs['subject'] = new_subject
+            super(Lesson, self).__init__(*args, **kwargs)
+
+        super(Lesson, self).__init__(*args, **kwargs)
 
 
 class SubjectTeaching(models.Model):
