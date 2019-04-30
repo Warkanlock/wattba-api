@@ -27,7 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '.us-west-2.elasticbeanstalk.com',
-    'localhost'
+    'localhost',
+    'wattba.h9ssxfia9b.us-west-2.elasticbeanstalk.com/',
+    '127.0.0.1'
 ]
 
 
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'djrichtextfield',
 
     'api',
+    'quick',
 ]
 
 MIDDLEWARE = [
