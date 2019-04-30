@@ -2,14 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, AnonymousUser
 from typing import Union
 
-from .search import LessonContentIndex
-
 
 class Subject(models.Model):
     name = models.CharField(max_length=280, blank=False, null=False)
-
-    def __str__(self):
-        return self.name
 
     def get_lessons(self):
 
@@ -34,7 +29,6 @@ class Subject(models.Model):
         for teaching in teachings:
             values.append({"Teacher": teaching.teacher.username,
                            "grade": teaching.grade})
-        return values
 
         def __str__(self):
             return self.name
@@ -86,30 +80,32 @@ class User(AbstractUser):
 #: Helper type for Django request users: either anonymous or signed-in.
 RequestUser = Union[AnonymousUser, User]
 
+
+class Tag(models.Model):
+    """Tag for data. Every tag has unique text.
+    Tags are intersubject so don't attach them to subjects
+    """
+    text = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return 'tag'.format(
+            tag=self.text)
+
+
 class Lesson(models.Model):
 
     title = models.CharField(max_length=280, blank=False, null=False)
-    content = RichTextField( default="") # models.TextField(max_length=1000, blank=False, null=False)
+    content = models.TextField(blank=False, null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    summary = models.CharField(max_length=280, default="")
+    summary = models.CharField(max_length=280, blank=True, null=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    grade = models.IntegerField() # this will also help with filtering
-    tags = models.TextField( default="")
-    bookmarked = models.BooleanField(default=False)
+    grade = models.IntegerField()  # this will also help with filtering
+
     # at the moment these are just basic stags separated by commas
     # django taggit is a bit tricky and not worth it atm
-    
-    def indexing(self):
-        obj = LessonContentIndex(
-        meta={'id': self.id},
-        content=self.content,
-        tags=self.tags ,
-        title=self.title,
-        summary=self.summary,
-        id=self.id
-            )
-        obj.save()
-        return obj.to_dict(include_meta=True)
+    tags = models.TextField()
+    duration = models.IntegerField(blank=True, null=True)
+
 
 class SubjectTeaching(models.Model):
     '''

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_extra %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+ <div class="subject_detail-container">
+<div  class="subject__deck">
+    {% for subject in subject_list %}
+        {% include 'includes/subject_cards.html' with subject=subject user=user csrf_token=csrf_token only%}
+    {% endfor %}
+</div>
+ <div class="subject__lesson_list">
+    {% for lesson in lesson_list %}
+        {% include 'includes/lesson_card_brief.html' with lesson=lesson only %}
+    {% endfor %}
+ </div>
+ </div>
+{% endblock %}

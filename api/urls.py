@@ -20,7 +20,7 @@ urlpatterns = [
 	# subject follow/teaching api endpoints
 	# these return primary keys for the the user and the subject
 	# you need to re-create requests
-	path('teaching/', views.SubjectTeachingCreate.as_view()),
-	path('teaching/<slug:pk>/', views.SubjectTeachingDetail.as_view()),
-	path('search?/<slug:str>/', views.SearchView.as_view()),
+	# path('teaching/', views.SubjectTeachingCreate.as_view()),
+	# path('teaching/<slug:pk>/', views.SubjectTeachingDetail.as_view()),
+	# path('search?/<slug:str>/', views.SearchView.as_view()),
 ]
