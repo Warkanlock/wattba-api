@@ -2,17 +2,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, AnonymousUser
 from typing import Union
 
-import requests
-from djrichtextfield.models import RichTextField
 
-summary_url = 'http://18.236.191.192:3000/summary?action=[action_name]&[parameters]'
+import requests
 
 
 class Subject(models.Model):
     name = models.CharField(max_length=280, blank=False, null=False)
-
-    def __str__(self):
-        return self.name
 
     def get_lessons(self):
 
@@ -37,7 +32,6 @@ class Subject(models.Model):
         for teaching in teachings:
             values.append({"Teacher": teaching.teacher.username,
                            "grade": teaching.grade})
-        return values
 
     # TOD0
     # tags =  DJANGO TAGGABLE MANAGER
@@ -87,13 +81,25 @@ class User(AbstractUser):
 #: Helper type for Django request users: either anonymous or signed-in.
 RequestUser = Union[AnonymousUser, User]
 
+
+class Tag(models.Model):
+    """Tag for data. Every tag has unique text.
+    Tags are intersubject so don't attach them to subjects
+    """
+    text = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return 'tag'.format(
+            tag=self.text)
+
+
 class Lesson(models.Model):
     title = models.CharField(max_length=280, blank=False, null=False)
-    content = RichTextField( default="") # models.TextField(max_length=1000, blank=False, null=False)
+    content = models.TextField(blank=False, null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     summary = models.CharField(max_length=280, default="", blank=True, null=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    grade = models.IntegerField() # this will also help with filtering
+    grade = models.IntegerField()  # this will also help with filtering
     age_range = models.TextField(default="", null=True, blank=True)
     language = models.TextField(default="", null=True, blank=True)
     translation = models.TextField(default="", null=True, blank=True)

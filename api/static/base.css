@@ -1,0 +1,193 @@
+:root{
+    --open-blue:    #6c63ff;
+    --open-light-blue: #3BC9EC;
+    --open-green:    #3e3c56;
+    --open-grey:    #A6C8C6;
+    --open-light-green:  #77DB8F;
+    --open-light-purple: #C6B9CA;
+    --open-purple: #B293BC;
+}
+
+@font-face {
+    font-family: openFont;
+    src: url(GothamRounded-Light.ttf);
+  }
+
+.bg-open-site {
+    background-color: --var(open-grey);
+    font-family: openFont;
+}
+
+.open-green_text{
+color: var(--open-green);
+text-decoration: none;
+}
+
+.open-blue_text{
+color: var(--open-blue);
+text-decoration: none;
+}
+.open-grey_text{
+    color: var(--open-grey);
+    text-decoration: none;
+}
+
+.open-purple_text{
+    color: var(--open-purple);
+    text-decoration: none;
+}
+/* Block: Navigation bar. */
+.open-nav {
+    background: linear-gradient(to bottom right, #17EAD9, #6c63ff), #5689E8;
+    color: white;
+    /* A bit of space before the content. */
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    margin-bottom: 0.5em;
+}
+/* Element: Navigation bar links. */
+.open-nav__link {
+    display: block;
+    text-align: center;
+}
+.open-nav__link, .open-nav__link:hover {
+    color: white;
+}
+
+.open-container {
+    margin-left: 0;
+    max-width: 100%;
+}
+
+
+/*** LESSON CARDS */
+
+/* Styles for lesson
+lessons. */
+
+/* Block: lesson
+lesson */
+
+.lesson__card {
+    background-color: white;
+    padding: 1em 2em;
+    /* Spacing between lesson
+    lessons: */
+    margin-top: 1em;
+    margin-bottom: 1em;
+    /* Shadow */
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.15em;
+    max-width: 45em;
+}
+
+
+.lesson__card:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+
+.lesson__title {
+    font-weight: bold;
+    font-size: 1.2rem
+}
+
+.lesson__attribution {
+    opacity: 0.5;
+    font-size: smaller;
+    font-weight: bold;
+}
+
+
+.lesson__answers_heading {
+    font-weight: bold;
+    text-align: center;
+    color: var(--open-purple);
+}
+
+
+.lesson__card-header{
+   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* XXX (Pi 2018-08-27): Temporary btn-primary override for our open green, until we do this better. */
+.btn-open-green {
+    background-color: var(--open-green);
+    border-color: var(--open-green);
+    border-radius: 1em;
+}
+
+.btn-open-green:hover{
+    background-color: var(--open-green);
+    border-color:  var(--open-light-green);
+}
+
+
+.lesson__add_answer {
+    background-color: var(--open-purple);
+    border-radius: 12px;
+    padding: 1px 4%;
+    text-align: center;
+    color: white;
+}
+
+
+.lesson__edit_answer {
+    background-color:var(--open-purple);
+    border-radius: 12px;
+    padding: 1px 2%;
+    text-align: center;
+    color: white;
+}
+
+/* XXX (Pi): Temporarily hack around these textareas being too wide on small views. */
+textarea[name=body] {
+    max-width: 100%;
+}
+
+/* TODO (Pi 2018-08-27): Target the Bootstrap form-control class directly, for now. Customise this more properly later. */
+.form-control {
+    border: 2px solid var(--open-light-blue);
+}
+
+
+.dot {
+  height: 10px;
+  width: 10px;
+  background-color: var(--open-light-purple);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/******** Search Funcation in django ************/
+
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}

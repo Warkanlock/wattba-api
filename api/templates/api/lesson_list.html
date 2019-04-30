@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_extra %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+ <div class="subject_detail-container">
+<div  class="subject__deck">
+    {% for subject in subject_list %}
+        {{ subject }}
+    {% endfor %}
+</div>
+ <div class="subject__lesson_list">
+    {% for lesson in lesson_list %}
+        <div class=" card lesson__card mx-auto table-hover">
+        	<a href="{% url 'lesson-detail' lesson.pk %}">
+    <div class="d-flex justify-content-between" >
+    	<h2 class="open-blue_text" style="text-decoration: none;"> {{lesson.title}}</a>
+    		(<a href="{% url 'subject-detail' lesson.subject.pk %}" class=" open-green_text">{{lesson.subject.name}}</a>)
+    	</h2>
+
+    	 	{% if lesson.summary %} {{lesson.summary |truncatewords:50}}
+    		{% else %} {{lesson.content |truncatewords:50 }}
+    		{% endif %}
+    		<br>
+    		<div class="lesson__attribution ">
+        lesson by<a href="{# url 'user-detail' lesson.author.pk #}">
+             @{{ lesson.author.username }}</a>
+
+
+        <p class="date lesson__attribution open-grey_text">
+            {{ lesson.created}}</p>
+        </div>
+  </div>
+    <a href="{# url 'lesson-detail' lesson.pk #}" class="d-block lesson__title">
+       {{ lesson.username }}
+    </a>
+    <div class="lesson__body">
+    </div>
+
+</div>
+    {% endfor %}
+ </div>
+ </div>
+</a>
+{% endblock %}

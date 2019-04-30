@@ -1,0 +1,60 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Bootstrap meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {# TODO (Pi 2018-08-27): Minimise this to just the Bootstrap bits we actually use. #}
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+
+    {% block head_extra %}{% endblock %}
+
+    <title>{% block title %}Open Curriculum{% endblock %}</title>
+</head>
+
+<body class="bg-open-site">
+<nav class="open-nav">
+    <div class="container">
+
+        <div class="row">
+            <div class="col">
+                <a href="{% url 'home' %}" class="open-nav__link">
+                    <h1>Open Curriculum</h1>
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+<form class="example" action="/" style="margin:auto;max-width:300px">
+  <input type="text" placeholder="Search.." name="search" ><button type="submit"><i >
+  Go</i></button>
+
+</form>
+        </div>
+
+    </div>
+</nav>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <li class="{{ message.tags }}">
+            {{ message }}
+        </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="container open-container">
+    <div class="row">
+        <div class="col">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

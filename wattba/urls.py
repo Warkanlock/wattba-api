@@ -25,4 +25,5 @@ urlpatterns = [
     path('api/quick/', include('quick.urls')),
     path('djrichtextfield/', include('djrichtextfield.urls')),
     path('admin/', admin.site.urls),
+    path('', include('api.freebasics_urls')),
 ]
