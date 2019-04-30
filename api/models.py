@@ -92,7 +92,7 @@ class Lesson(models.Model):
     title = models.CharField(max_length=280, blank=False, null=False)
     content = RichTextField( default="") # models.TextField(max_length=1000, blank=False, null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    summary = models.CharField(max_length=280, default="")
+    summary = models.CharField(max_length=280, default="", blank=True, null=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     grade = models.IntegerField() # this will also help with filtering
     age_range = models.TextField(default="", null=True, blank=True)
@@ -121,9 +121,28 @@ class Lesson(models.Model):
             "http://18.236.191.192:3000/summary",
             json=post_data,
         )
+        summary = result.json()['result']
+        if not len(summary) > 0:
+            self.summary = summary
 
-        self.summary = result.json()['result'] or ""
         super(Lesson, self).save(*args, **kwargs)
+
+    def __init__(self, *args, **kwargs):
+
+        sub_val = kwargs.get('subject')
+        if type(sub_val) == str:
+            # the subject username is being used
+            subjects = Subject.objects.filter(name=sub_val)
+            if subjects.exists():
+                subject = subjects[0]
+                kwargs['subject'] = subject
+            else:
+                new_subject = Subject.objects.create(name=sub_val)
+                new_subject.save()
+                kwargs['subject'] = new_subject
+            super(Lesson, self).__init__(*args, **kwargs)
+
+        super(Lesson, self).__init__(*args, **kwargs)
 
 
 class SubjectTeaching(models.Model):
