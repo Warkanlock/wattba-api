@@ -12,4 +12,6 @@ urlpatterns = [
 	path('auth/', include(django.contrib.auth.urls)),
 	path('lessons/<slug:pk>/', freebasics_views.LessonDetailView.as_view(), name='lesson-detail'),
 	path('lessons/', freebasics_views.LessonListView.as_view(), name='lesson-list'),
+	path('lessons/<slug:pk>/', freebasics_views.LessonDetailView.as_view(), name='lesson-detail'),
+	path('subjects/<slug:pk>/', freebasics_views.SubjectDetailView.as_view(), name='subject-detail'),
 ]

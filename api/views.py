@@ -9,6 +9,7 @@ class HomeView(generics.ListCreateAPIView):
 	serializer_class = serializers.LessonSerializer
 
 
+
 class UserList(generics.ListCreateAPIView):
 	queryset = models.User.objects.all()
 	serializer_class = serializers.UserSerializer

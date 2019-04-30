@@ -1,7 +1,7 @@
 :root{
-    --open-blue:    #5689E8;
+    --open-blue:    #6c63ff;
     --open-light-blue: #3BC9EC;
-    --open-green:    #62DD7F;
+    --open-green:    #3e3c56;
     --open-grey:    #A6C8C6;
     --open-light-green:  #77DB8F;
     --open-light-purple: #C6B9CA;
@@ -10,7 +10,7 @@
 
 @font-face {
     font-family: openFont;
-    src: url(fonts/GothamRounded-Light.ttf);
+    src: url(GothamRounded-Light.ttf);
   }
 
 .bg-open-site {
@@ -20,21 +20,25 @@
 
 .open-green_text{
 color: var(--open-green);
+text-decoration: none;
 }
 
 .open-blue_text{
 color: var(--open-blue);
+text-decoration: none;
 }
 .open-grey_text{
     color: var(--open-grey);
+    text-decoration: none;
 }
 
 .open-purple_text{
     color: var(--open-purple);
+    text-decoration: none;
 }
 /* Block: Navigation bar. */
 .open-nav {
-    background: linear-gradient(to bottom right, #17EAD9, #6078EA), #5689E8;
+    background: linear-gradient(to bottom right, #17EAD9, #6c63ff), #5689E8;
     color: white;
     /* A bit of space before the content. */
     padding-top: 0.5em;
@@ -63,8 +67,8 @@ lessons. */
 
 /* Block: lesson
 lesson */
-.lesson
-lesson__card {
+
+.lesson__card {
     background-color: white;
     padding: 1em 2em;
     /* Spacing between lesson
@@ -77,32 +81,32 @@ lesson__card {
     max-width: 45em;
 }
 
-.lesson
-lesson__card:hover {
+
+.lesson__card:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
-.lesson
-lesson__title {
+
+.lesson__title {
     font-weight: bold;
     font-size: 1.2rem
 }
-.lesson
-lesson__attribution {
+
+.lesson__attribution {
     opacity: 0.5;
     font-size: smaller;
     font-weight: bold;
 }
 
-.lesson
-lesson__answers_heading {
+
+.lesson__answers_heading {
     font-weight: bold;
     text-align: center;
     color: var(--open-purple);
 }
 
-.lesson
-lesson__card-header{
+
+.lesson__card-header{
    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
@@ -118,8 +122,8 @@ lesson__card-header{
     border-color:  var(--open-light-green);
 }
 
-.lesson
-lesson__add_answer {
+
+.lesson__add_answer {
     background-color: var(--open-purple);
     border-radius: 12px;
     padding: 1px 4%;
@@ -127,8 +131,8 @@ lesson__add_answer {
     color: white;
 }
 
-.lesson
-lesson__edit_answer {
+
+.lesson__edit_answer {
     background-color:var(--open-purple);
     border-radius: 12px;
     padding: 1px 2%;
@@ -153,4 +157,37 @@ textarea[name=body] {
   background-color: var(--open-light-purple);
   border-radius: 50%;
   display: inline-block;
+}
+
+/******** Search Funcation in django ************/
+
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
 }

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_extra %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+ <div class=" card lesson__card mx-auto table-hover">
+       <a href="{% url 'lesson-detail' lesson.pk %}">
+<h2 class="open-blue_text"> {{lesson.title}}</h2></a>
+subject: <a href="{% url 'subject-detail' lesson.subject.pk %}" class="open-green_text">{{lesson.subject.name}}</a>
+	<br>
+lesson by: <a href="{# url 'user-detail' lesson.author.pk #}" class="open-green_text">
+             @{{ lesson.author.username }}</a>
+<br>
+duration: <a class="open-green_text">{{ lesson.duration}}</a>
+<br>
+rating: {{lesson.rating}}
+<br>____________________________<br>
+required material: {{lesson.supplies}}<br>
+ {{lesson.content}}
+
+
+{% endblock %}

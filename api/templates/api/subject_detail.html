@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_extra %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<h2 class="open-purple_text" style="text-align: center;"> {{subject.name}}</h2></a>
+    <br>
+ <div class="subject__lesson_list">
+    {% for lesson in subject.lesson_set.all%}
+        <div class=" card lesson__card mx-auto table-hover">
+            <a href="{% url 'lesson-detail' lesson.pk %}">
+    <div class="lesson__card-header d-flex justify-content-between">
+        <h2 class="open-blue_text"> {{lesson.title}} (<a href="{% url 'subject-detail' lesson.subject.pk %}" class=" open-green_text">{{lesson.subject.name}}</a>)</h2>
+
+            {% if lesson.summary %} {{lesson.summary |truncatewords:50}}
+            {% else %} {{lesson.content |truncatewords:50 }}
+            {% endif %}
+            <br>
+            <div class="lesson__attribution ">
+        lesson by <a href="{# url 'user-detail' lesson.author.pk #}">
+             @{{ lesson.author.username }}</a>
+
+
+        <p class="date lesson__attribution open-grey_text">
+            {{ lesson.created}}</p>
+        </div>
+  </div>
+    <a href="{# url 'lesson-detail' lesson.pk #}" class="d-block lesson__title">
+       {{ lesson.username }}
+    </a>
+    <div class="lesson__body">
+    </div>
+
+</div>
+    {% endfor %}
+ </div>
+ </div>
+</a>
+{% endblock %}
