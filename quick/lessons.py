@@ -93,11 +93,11 @@ def detail(request, id):
 
 def bookmark(request, lesson_id):
     lesson = Lesson.objects.get(pk=lesson_id)
-    lesson.bookmarked = True
+    lesson.bookmarked ^= True
     lesson.save()
 
     data = {
-        "status": "done"
+        "bookmarked": lesson.bookmarked
     }
 
     return JsonResponse(data, safe=False)
